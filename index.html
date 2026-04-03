@@ -4,151 +4,147 @@
 <title>CUET UG 2026 Mock Test</title>
 
 <style>
-body{
-    margin:0;
-    font-family: Arial;
-    text-align:center;
-    background:#eef2f3;
-}
-
-.header{
-    background:#111;
-    color:white;
-    padding:40px;
-}
-
-.header h1{
-    font-size:50px;
-}
-
-.header p{
-    font-size:20px;
-}
-
+body{margin:0;font-family:Arial;text-align:center;background:#eef2f3;}
+.header{background:#111;color:white;padding:40px;}
+.header h1{font-size:45px;}
 .btn{
-    padding:12px 20px;
-    margin:10px;
-    background:#007bff;
-    color:white;
-    border:none;
-    cursor:pointer;
-    font-size:16px;
+padding:12px 20px;margin:10px;background:#007bff;color:white;
+border:none;cursor:pointer;border-radius:6px;
 }
-
-.container{
-    padding:20px;
-}
-
-.hidden{
-    display:none;
-}
-
-.question{
-    margin:10px;
-    text-align:left;
-}
+.btn:hover{background:#0056b3;}
+.container{padding:20px;}
+.hidden{display:none;}
+.question{text-align:left;margin:10px;padding:10px;background:#fff;border-radius:8px;}
+.nav{margin-top:20px;}
 </style>
 
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
-    <h1>MOCK TEST FOR CUET UG 2026</h1>
-    <p>Easy to Apply • Easy to Crack</p>
+<h1>MOCK TEST FOR CUET UG 2026</h1>
+<p>Easy to Apply • Easy to Crack</p>
 </div>
 
 <div class="container">
 
 <!-- HOME -->
 <div id="home">
-    <h2>Free Mock Tests</h2>
-    <button class="btn" onclick="startTest('eng_free')">English Free Test</button>
-    <button class="btn" onclick="startTest('gat_free')">GAT Free Test</button>
+<h2>Free Mock Tests</h2>
+<button class="btn" onclick="startTest('eng_free')">English Free</button>
+<button class="btn" onclick="startTest('gat_free')">GAT Free</button>
 
-    <h2>Paid Mock Tests</h2>
-    <button class="btn" onclick="showPayment()">Attempt Paid Tests</button>
+<h2>Paid Mock Tests</h2>
+<button class="btn" onclick="showPayment()">Unlock Paid Tests</button>
 </div>
 
 <!-- QUIZ -->
 <div id="quiz" class="hidden">
-    <h2 id="title"></h2>
-    <form id="quizForm"></form>
-    <button class="btn" onclick="submitTest()">Submit</button>
-    <h3 id="result"></h3>
+<h2 id="title"></h2>
+<form id="quizForm"></form>
+
+<div class="nav">
+<button class="btn" onclick="submitTest()">Submit</button>
+<button class="btn" onclick="goHome()">⬅ Back</button>
+</div>
+
+<h3 id="result"></h3>
 </div>
 
 <!-- PAYMENT -->
 <div id="payment" class="hidden">
-    <h2>🔒 Unlock Paid Mock Tests</h2>
-    <p>Pay ₹5–₹10 to continue</p>
+<h2>🔒 Unlock Paid Tests</h2>
+<p>Pay ₹5–₹10</p>
 
-    <!-- 🔴 YAHAN APNA PAYMENT LINK DAALO -->
-    <a href="PASTE_YOUR_PAYMENT_LINK_HERE">
-        <button class="btn">Pay Now</button>
-    </a>
+<a href="PASTE_YOUR_PAYMENT_LINK_HERE">
+<button class="btn">Pay Now</button>
+</a>
 
-    <br><br>
-    <button class="btn" onclick="showPaidTests()">I Have Paid</button>
+<br><br>
+<button class="btn" onclick="showPaid()">I Have Paid</button>
+<button class="btn" onclick="goHome()">⬅ Back</button>
 </div>
 
-<!-- PAID TEST LIST -->
-<div id="paidTests" class="hidden">
-    <h2>Choose Test</h2>
+<!-- PAID -->
+<div id="paid" class="hidden">
+<h2>Choose Test</h2>
 
-    <h3>English Mock Tests</h3>
-    <button class="btn" onclick="startTest('eng1')">English Test 1</button>
-    <button class="btn" onclick="startTest('eng2')">English Test 2</button>
-    <button class="btn" onclick="startTest('eng3')">English Test 3</button>
-    <button class="btn" onclick="startTest('eng4')">English Test 4</button>
-    <button class="btn" onclick="startTest('eng5')">English Test 5</button>
+<h3>English</h3>
+<button class="btn" onclick="startTest('eng1')">Test 1</button>
+<button class="btn" onclick="startTest('eng2')">Test 2</button>
+<button class="btn" onclick="startTest('eng3')">Test 3</button>
+<button class="btn" onclick="startTest('eng4')">Test 4</button>
+<button class="btn" onclick="startTest('eng5')">Test 5</button>
 
-    <h3>GAT Mock Tests</h3>
-    <button class="btn" onclick="startTest('gat1')">GAT Test 1</button>
-    <button class="btn" onclick="startTest('gat2')">GAT Test 2</button>
-    <button class="btn" onclick="startTest('gat3')">GAT Test 3</button>
-    <button class="btn" onclick="startTest('gat4')">GAT Test 4</button>
-    <button class="btn" onclick="startTest('gat5')">GAT Test 5</button>
+<h3>GAT</h3>
+<button class="btn" onclick="startTest('gat1')">Test 1</button>
+<button class="btn" onclick="startTest('gat2')">Test 2</button>
+<button class="btn" onclick="startTest('gat3')">Test 3</button>
+<button class="btn" onclick="startTest('gat4')">Test 4</button>
+<button class="btn" onclick="startTest('gat5')">Test 5</button>
+
+<br><br>
+<button class="btn" onclick="goHome()">⬅ Back</button>
 </div>
 
 </div>
 
 <script>
 
+let currentTest = "";
+let questions = [];
+
+function generateQuestions(type){
+    let q=[];
+    for(let i=1;i<=50;i++){
+        q.push({
+            q:`${type.toUpperCase()} Question ${i}`,
+            options:["Option A","Option B","Option C","Option D"],
+            answer: Math.floor(Math.random()*4)
+        });
+    }
+    return q;
+}
+
 function startTest(type){
+    currentTest = type;
+
     document.getElementById("home").style.display="none";
     document.getElementById("payment").style.display="none";
-    document.getElementById("paidTests").style.display="none";
+    document.getElementById("paid").style.display="none";
     document.getElementById("quiz").style.display="block";
+
+    document.getElementById("title").innerText="Test: "+type;
+
+    questions = generateQuestions(type);
 
     let form=document.getElementById("quizForm");
     form.innerHTML="";
 
-    document.getElementById("title").innerText="Test - "+type+" (50 Questions)";
-
-    for(let i=1;i<=50;i++){
+    questions.forEach((item,index)=>{
         form.innerHTML+=`
         <div class="question">
-        <p>${i}. Sample Question ${i}</p>
-        <input type="radio" name="q${i}" value="1"> Option A<br>
-        <input type="radio" name="q${i}" value="0"> Option B<br>
+        <p>${index+1}. ${item.q}</p>
+        ${item.options.map((opt,i)=>
+            `<input type="radio" name="q${index}" value="${i}"> ${opt}<br>`
+        ).join("")}
         </div>`;
-    }
+    });
 }
 
 function submitTest(){
     let score=0;
     let form=document.forms["quizForm"];
 
-    for(let i=1;i<=50;i++){
-        let q=form["q"+i];
-        for(let j=0;j<q.length;j++){
-            if(q[j].checked && q[j].value=="1"){
+    questions.forEach((item,index)=>{
+        let q=form["q"+index];
+        for(let i=0;i<q.length;i++){
+            if(q[i].checked && i===item.answer){
                 score++;
             }
         }
-    }
+    });
 
     document.getElementById("result").innerText="Score: "+score+"/50";
 }
@@ -158,9 +154,17 @@ function showPayment(){
     document.getElementById("payment").style.display="block";
 }
 
-function showPaidTests(){
+function showPaid(){
     document.getElementById("payment").style.display="none";
-    document.getElementById("paidTests").style.display="block";
+    document.getElementById("paid").style.display="block";
+}
+
+function goHome(){
+    document.getElementById("quiz").style.display="none";
+    document.getElementById("payment").style.display="none";
+    document.getElementById("paid").style.display="none";
+    document.getElementById("home").style.display="block";
+    document.getElementById("result").innerText="";
 }
 
 </script>
