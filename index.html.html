@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CUET Mock Test</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            text-align: center;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            margin: 50px auto;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        button {
+            padding: 10px 20px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>CUET English Mock Test</h2>
+
+    <p>1. Synonym of Abundant?</p>
+    <input type="radio" name="q1" value="0"> Scarce<br>
+    <input type="radio" name="q1" value="1"> Plenty<br><br>
+
+    <p>2. She ____ to school daily.</p>
+    <input type="radio" name="q2" value="0"> go<br>
+    <input type="radio" name="q2" value="1"> goes<br><br>
+
+    <button onclick="checkScore()">Submit</button>
+
+    <h3 id="result"></h3>
+</div>
+
+<script>
+function checkScore() {
+    let score = 0;
+
+    let q1 = document.querySelector('input[name="q1"]:checked');
+    let q2 = document.querySelector('input[name="q2"]:checked');
+
+    if(q1 && q1.value == "1") score++;
+    if(q2 && q2.value == "1") score++;
+
+    document.getElementById("result").innerText = "Your Score: " + score + "/2";
+}
+</script>
+
+</body>
+</html>
